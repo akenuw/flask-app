@@ -1,3 +1,4 @@
+import pandas as pd # type: ignore
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
 import openpyxl
@@ -59,7 +60,7 @@ def logout():
     return redirect(url_for('login'))
     
 # Admin dashboard route
-@app.route('/admin_dashboard')
+@app.route('/dashboard')
 def admin_dashboard():
     if 'logged_in' in session and session['logged_in']:
         return render_template('dashboard.html')  # Admin dashboard template
