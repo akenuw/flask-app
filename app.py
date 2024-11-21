@@ -38,7 +38,7 @@ employees = {
     # Add more employees here...
 }
 
-# Route for login
+# Login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -52,19 +52,18 @@ def login():
             return "Invalid credentials. Please try again."
     return render_template('login.html')
 
-# Route for logout
+# Logout route
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     return redirect(url_for('login'))
-
-# Admin Dashboard route
-@app.route('/admin')
-def admin_dashboard():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-        return redirect(url_for('login'))
     
+# Admin dashboard route
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template('dashboard.html')  # Admin dashboard template
+    return redirect(url_for('login'))
     # Load attendance data
     workbook = openpyxl.load_workbook(attendance_file)
     sheet = workbook.active
