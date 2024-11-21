@@ -62,6 +62,7 @@ def logout():
 @app.route('/admin')
 def admin_dashboard():
     if not session.get('logged_in'):
+        return render_template('login.html')
         return redirect(url_for('login'))
     
     # Load attendance data
